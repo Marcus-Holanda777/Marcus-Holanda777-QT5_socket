@@ -23,13 +23,10 @@ class Cliente:
         self.main()
 
     def enviar_mensagem(self, escolha):
-        if escolha == '0':
-            pass
-        else:
-            comando = menu[escolha][1]
+        comando = menu[escolha][1]
 
-            self.cache_cliente.appendleft(comando)
-            self.cliente.send(f'{self.usuario},{comando}'.encode('utf_8'))
+        self.cache_cliente.appendleft(comando)
+        self.cliente.send(f'{self.usuario},{comando}'.encode('utf_8'))
 
     def receber_mensagem(self):
         while True:
@@ -80,6 +77,9 @@ class App(QMainWindow, Ui_MainWindow):
         self.listCliente.setStyleSheet(estilo_cliente)
         self.listServidor.setStyleSheet(estilo_servidor)
 
+        ''' ESTILO BUTAO '''
+        self.btnExec.setStyleSheet(estilo_btn_exe)
+
         ''' COMPOSICAO COM A CLASE CLIENTE '''
         self.cliente = Cliente()
 
@@ -115,17 +115,23 @@ class App(QMainWindow, Ui_MainWindow):
             self.comboTarefas.addItem(f'{k}: {v[0]}')
 
     def btn_executar(self):
-        selecionado = self.comboTarefas.currentText()
-        selecionado = selecionado.split(':')[0].strip()
+        resposta = QMessageBox.warning(self, 'OK',
+                                       'Deseja executar ?',
+                                       QMessageBox.Yes | QMessageBox.No,
+                                       QMessageBox.No)
 
-        self.cliente.rodar_logs(selecionado)
+        if resposta == QMessageBox.Yes:
+            selecionado = self.comboTarefas.currentText()
+            selecionado = selecionado.split(':')[0].strip()
+
+            self.cliente.rodar_logs(selecionado)
 
     def update_lista(self):
         self.carregar_cliente()
         self.carregar_servidor()
 
     def closeEvent(self, event):
-        reply = QMessageBox.question(self, 'Sair ?',
+        reply = QMessageBox.critical(self, 'Sair ?',
                                      'Deseja Realmente sair ?',
                                      QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
 
