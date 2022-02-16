@@ -15,6 +15,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(760, 534)
+        MainWindow.setStyleSheet("")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
@@ -55,12 +56,6 @@ class Ui_MainWindow(object):
         self.lbStatus.setFont(font)
         self.lbStatus.setObjectName("lbStatus")
         self.gridLayout.addWidget(self.lbStatus, 10, 1, 1, 1)
-        self.btnConnectar = QtWidgets.QPushButton(self.centralwidget)
-        font = QtGui.QFont()
-        font.setPointSize(14)
-        self.btnConnectar.setFont(font)
-        self.btnConnectar.setObjectName("btnConnectar")
-        self.gridLayout.addWidget(self.btnConnectar, 10, 2, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -73,4 +68,3 @@ class Ui_MainWindow(object):
         self.lbServidor.setText(_translate("MainWindow", "Servidor"))
         self.lbCliente.setText(_translate("MainWindow", "Cliente"))
         self.lbStatus.setText(_translate("MainWindow", "Status"))
-        self.btnConnectar.setText(_translate("MainWindow", "Conectar"))
